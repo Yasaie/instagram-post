@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>پست اینستاگرام جماران</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="assets/css/style.min.css">
+    <script type="text/javascript" src="assets/js/bundle.js"></script>
+</head>
+<body class="bg-dark">
+<div id="app" class="container">
+    <div id="container" dir="ltr" ref="postPrint">
+        <label class="file-upload btn btn-primary btn-lg" v-if="!image">
+            <input type="file" @change="onFileChange($event)"/>
+            آپلود عکس
+        </label>
+        <div id="post">
+            <div id="cropme"></div>
+            <div id="shadow"></div>
+            <div id="logo"></div>
+            <div id="titles" v-bind:class="[lineDirection === 'right' ? 'line-right' : 'line-bottom']">
+                <div v-text="leadTitle" id="lead-title-text"></div>
+                <div v-html="title" id="title-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-3">
+        <div class="row mb-2">
+            <div class="col">
+                <input type="text" id="lead-title" class="form-control bg-dark text-white" placeholder="سر تیتر ..." v-model="leadTitle">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col">
+                <editor :init="tinymceOptions" v-model="title"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col pt-2">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="border-line" id="right-line" v-model="lineDirection" value="right" checked>
+                    <label class="form-check-label text-white" for="right-line">نمایش خط راست</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="border-line" id="bottom-line" v-model="lineDirection" value="bottom">
+                    <label class="form-check-label text-white" for="bottom-line">نمایش خط پایین</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-grid mb-4">
+        <button class="btn btn-danger" @click="screenShot">اسکرین شات</button>
+    </div>
+</div>
+<div id="screen-shot"></div>
+</body>
+</html>
