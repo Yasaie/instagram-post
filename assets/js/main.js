@@ -9,7 +9,7 @@ require('tinymce/icons/default');
 require('tinymce/themes/silver');
 require('../plugins/tinymce/langs/fa');
 var Editor = require('@tinymce/tinymce-vue').default;
-var html2canvas = require('html2canvas');
+var domtoimage = require('dom-to-image');
 
 window.onload = function () {
     new Vue({
@@ -83,21 +83,27 @@ window.onload = function () {
         computed: {},
         methods: {
             screenShot() {
-                let el = this.$refs.postPrint;
-                let screenShot = document.querySelector('#screen-shot');
-                let screenShotImg = screenShot.appendChild(document.createElement('img'));
-                const options = {
-                    x: 0,
-                    y: 0,
-                    scrollX: 0,
-                    scrollY: 0
-                }
-                html2canvas(el, options).then(function (canvas) {
-                    el.style.display = "none";
-                    // screenShot.appendChild(canvas);
-                    screenShotImg.src = canvas.toDataURL()
-                    screenShot.style.display = 'block';
-                });
+                var node = document.getElementById('container');
+                var scale = 3
+                domtoimage.toPng(node, {
+                    height: node.offsetHeight * scale,
+                    width: node.offsetWidth * scale,
+                    style: {
+                        transform: "scale(" + scale + ")",
+                        transformOrigin: "top left",
+                        width: node.offsetWidth + "px",
+                        height: node.offsetHeight + "px"
+                    }
+                })
+                    .then(function (dataUrl) {
+                        var link = document.createElement('a');
+                        link.download = 'image.png';
+                        link.href = dataUrl;
+                        link.click();
+                    })
+                    .catch(function (error) {
+                        console.error('oops, something went wrong!', error);
+                    });
             },
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files;

@@ -6,11 +6,11 @@ $color-yellow: #ffe515;
 
 #app {
   font-family: Tahoma;
+  padding-top: 10px;
 
   #container {
     position: relative;
     width: 100%;
-    margin-top: 10px;
 
     &:after {
       content: "";
