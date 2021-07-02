@@ -59,7 +59,7 @@ window.onload = function () {
                         name: 'history', items: ['undo', 'redo']
                     }
                 ],
-                fontsize_formats: "16pt 18pt 20pt 22pt 24pt 26pt 28pt 30pt",
+                fontsize_formats: "16pt 17pt 18pt 19pt 20pt 21pt 22pt 23pt 24pt 25pt 26pt 27pt 28pt 29pt 30pt",
                 content_style: "body {font-size: 18pt; margin-top: 0;} p {margin: 0}",
                 setup: function (editor) {
                     editor.ui.registry.addButton('yellowcolor', {
